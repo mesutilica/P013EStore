@@ -27,5 +27,6 @@ namespace P013EStore.Core.Entities
         public int OrderNo { get; set; }
         [Display(Name = "Eklenme Tarihi"), ScaffoldColumn(false)]
         public DateTime? CreateDate { get; set; } = DateTime.Now;
+        public List<Product>? Products { get; set; }
     }
 }
