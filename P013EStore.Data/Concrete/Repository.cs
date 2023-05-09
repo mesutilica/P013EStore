@@ -22,7 +22,7 @@ namespace P013EStore.Data.Concrete
 
         public async Task AddAsync(T entity)
         {
-           await _dbSet.AddAsync(entity);
+            await _dbSet.AddAsync(entity);
         }
 
         public void Delete(T entity)
@@ -32,7 +32,7 @@ namespace P013EStore.Data.Concrete
 
         public T Find(int id)
         {
-           return _dbSet.Find(id);
+            return _dbSet.Find(id);
         }
 
         public async Task<T> FindAsync(int id)

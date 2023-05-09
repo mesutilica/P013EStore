@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using P013EStore.Core.Entities;
-using P013EStore.Data.Configurations;
 using System.Reflection;
 
 namespace P013EStore.Data

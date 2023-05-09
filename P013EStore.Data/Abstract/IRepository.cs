@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions; // kendi lambda Expression(x=>x.) kullanabileceğimiz metotları yazmamızı sağlayan kütüphane.
+﻿using System.Linq.Expressions; // kendi lambda Expression(x=>x.) kullanabileceğimiz metotları yazmamızı sağlayan kütüphane.
 
 namespace P013EStore.Data.Abstract
 {
