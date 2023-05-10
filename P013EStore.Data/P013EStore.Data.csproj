@@ -18,8 +18,4 @@
     <ProjectReference Include="..\P013EStore.Core\P013EStore.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Concrete\" />
-  </ItemGroup>
-
 </Project>
