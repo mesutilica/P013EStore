@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using P013EStore.Core.Entities;
 using P013EStore.MVCUI.Utils;
 using P013EStore.Service.Abstract;
 
 namespace P013EStore.MVCUI.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize]
     public class BrandsController : Controller
     {
         private readonly IService<Brand> _service; // readonly nesneler sadece constructor metotta doldurulabilir

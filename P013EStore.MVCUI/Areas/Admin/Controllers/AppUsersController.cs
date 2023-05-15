@@ -1,51 +1,47 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using P013EStore.Core.Entities;
-using P013EStore.MVCUI.Utils;
 using P013EStore.Service.Abstract;
 
 namespace P013EStore.MVCUI.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize]
-    public class SliderController : Controller
+    [Area("Admin")]
+    public class AppUsersController : Controller
     {
-        private readonly IService<Slider> _service;
+        private readonly IService<AppUser> _service;
 
-        public SliderController(IService<Slider> service)
+        public AppUsersController(IService<AppUser> service)
         {
             _service = service;
         }
 
-        // GET: SliderController
+        // GET: AppUsersController
         public async Task<ActionResult> Index()
         {
             var model = await _service.GetAllAsync();
             return View(model);
         }
 
-        // GET: SliderController/Details/5
+        // GET: AppUsersController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: SliderController/Create
+        // GET: AppUsersController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: SliderController/Create
+        // POST: AppUsersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(Slider collection, IFormFile? Image)
+        public async Task<ActionResult> CreateAsync(AppUser collection)
         {
             try
             {
-                if (Image is not null)
-                {
-                    collection.Image = await FileHelper.FileLoaderAsync(Image);
-                }
+                collection.UserGuid = Guid.NewGuid();
                 await _service.AddAsync(collection);
                 await _service.SaveAsync();
                 return RedirectToAction(nameof(Index));
@@ -56,29 +52,20 @@ namespace P013EStore.MVCUI.Areas.Admin.Controllers
             }
         }
 
-        // GET: SliderController/Edit/5
+        // GET: AppUsersController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
             var model = await _service.FindAsync(id);
             return View(model);
         }
 
-        // POST: SliderController/Edit/5
+        // POST: AppUsersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, Slider collection, IFormFile? Image, bool? resmiSil)
+        public async Task<ActionResult> EditAsync(int id, AppUser collection)
         {
             try
             {
-                if (resmiSil is not null && resmiSil == true)
-                {
-                    FileHelper.FileRemover(collection.Image);
-                    collection.Image = "";
-                }
-                if (Image is not null)
-                {
-                    collection.Image = await FileHelper.FileLoaderAsync(Image);
-                }
                 _service.Update(collection);
                 await _service.SaveAsync();
                 return RedirectToAction(nameof(Index));
@@ -89,22 +76,22 @@ namespace P013EStore.MVCUI.Areas.Admin.Controllers
             }
         }
 
-        // GET: SliderController/Delete/5
-        public async Task<ActionResult> Delete(int id)
+        // GET: AppUsersController/Delete/5
+        public async Task<ActionResult> DeleteAsync(int id)
         {
             var model = await _service.FindAsync(id);
             return View(model);
         }
 
-        // POST: SliderController/Delete/5
+        // POST: AppUsersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Slider collection)
+        public async Task<ActionResult> DeleteAsync(int id, AppUser collection)
         {
             try
             {
                 _service.Delete(collection);
-                _service.Save();
+                await _service.SaveAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch
