@@ -1,24 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using P013EStore.Core.Entities;
 using P013EStore.MVCUI.Models;
+using P013EStore.Service.Abstract;
 using System.Diagnostics;
 
 namespace P013EStore.MVCUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IService<Slider> _serviceSlider;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IService<Slider> serviceSlider)
         {
-            _logger = logger;
+            _serviceSlider = serviceSlider;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            var model = new HomePageViewModel()
+            {
+                Sliders = await _serviceSlider.GetAllAsync()
+            };
+            return View(model);
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        [Route("AccessDenied")]
+        public IActionResult AccessDenied()
         {
             return View();
         }

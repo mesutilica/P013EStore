@@ -6,7 +6,7 @@ using P013EStore.Service.Abstract;
 
 namespace P013EStore.MVCUI.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize]
+    [Area("Admin"), Authorize(Policy = "AdminPolicy")]
     public class SliderController : Controller
     {
         private readonly IService<Slider> _service;
