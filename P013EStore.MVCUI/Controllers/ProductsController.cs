@@ -13,10 +13,16 @@ namespace P013EStore.MVCUI.Controllers
         {
             _serviceProduct = serviceProduct;
         }
-
+        [Route("tum-urunlerimiz")] // adres çubuğundan tum-urunlerimiz yazınca bu action çalışsın
         public async Task<IActionResult> IndexAsync()
         {
             var model = await _serviceProduct.GetAllAsync(p => p.IsActive);
+            return View(model);
+        }
+        
+        public async Task<IActionResult> Search(string q) // adres çubuğunda query string ile 
+        {
+            var model = await _serviceProduct.GetProductsByIncludeAsync(p => p.IsActive && p.Name.Contains(q) || p.Description.Contains(q) || p.Brand.Name.Contains(q) || p.Category.Name.Contains(q));
             return View(model);
         }
 

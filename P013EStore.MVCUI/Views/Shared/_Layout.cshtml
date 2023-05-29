@@ -12,13 +12,15 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">P013EStore.MVCUI</a>
+                <a class="navbar-brand" style="background-color:#202844; padding: 5px 1rem;" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/logo.png" height="50" />
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-center">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Anasayfa</a>
                         </li>
@@ -27,9 +29,19 @@
                         </li>
                         @await Component.InvokeAsync("Categories")
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Gizlilik</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Gizlilik</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="ContactUs">İletişim</a>
                         </li>
                     </ul>
+                </div>
+                <form asp-controller="Products" asp-action="Search" method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" name="q" class="form-control form-control-dark text-bg-dark" placeholder="Ara..." aria-label="Search">
+                </form>
+                <div class="text-end">
+                    <button type="button" class="btn btn-outline-primary me-2">Giriş</button>
+                    <button type="button" class="btn btn-primary">Kayıt</button>
                 </div>
             </div>
         </nav>
