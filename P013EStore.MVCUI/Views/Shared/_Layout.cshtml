@@ -40,13 +40,22 @@
                     <input type="search" name="q" class="form-control form-control-dark text-bg-dark" placeholder="Ara..." aria-label="Search">
                 </form>
                 <div class="text-end">
-                    <a asp-controller="Account" asp-action="Login" class="btn btn-outline-primary me-2">Giriş</a>
-                    <a asp-controller="Account" asp-action="SignIn" class="btn btn-primary">Kayıt</a>
+                    @if (Context.Session.GetInt32("userId") == null)
+                    {
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-primary me-2">Giriş</a>
+                        <a asp-controller="Account" asp-action="SignIn" class="btn btn-primary">Kayıt</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Index" class="btn btn-primary">Hesabım</a>
+                        <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Oturumu Kapat</a>
+                    }
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
+        @Html.Raw(TempData["Message"])
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
