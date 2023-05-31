@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P013EStore.MVCUI", "P013ESt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P013EStore.Core", "P013EStore.Core\P013EStore.Core.csproj", "{1489185F-08B2-4D92-AAF4-F93CB0207986}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P013EStore.Data", "P013EStore.Data\P013EStore.Data.csproj", "{09000AAB-BA6E-4EA3-9945-8956C57E5210}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P013EStore.Data", "P013EStore.Data\P013EStore.Data.csproj", "{09000AAB-BA6E-4EA3-9945-8956C57E5210}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P013EStore.Service", "P013EStore.Service\P013EStore.Service.csproj", "{8F54CD19-4D44-4A8E-9794-4BFAA28CAE0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P013EStore.Service", "P013EStore.Service\P013EStore.Service.csproj", "{8F54CD19-4D44-4A8E-9794-4BFAA28CAE0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P013EStore.WebAPI", "P013EStore.WebAPI\P013EStore.WebAPI.csproj", "{A79764C8-7E17-457A-9BD1-0BA83FCDC353}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8F54CD19-4D44-4A8E-9794-4BFAA28CAE0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F54CD19-4D44-4A8E-9794-4BFAA28CAE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F54CD19-4D44-4A8E-9794-4BFAA28CAE0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A79764C8-7E17-457A-9BD1-0BA83FCDC353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A79764C8-7E17-457A-9BD1-0BA83FCDC353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A79764C8-7E17-457A-9BD1-0BA83FCDC353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A79764C8-7E17-457A-9BD1-0BA83FCDC353}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
