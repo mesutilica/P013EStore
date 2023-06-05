@@ -39,7 +39,7 @@ namespace P013EStore.WebAPI.Controllers
         }
 
         // PUT api/<ContactsController>/5
-        [HttpPut("{id}")]
+        [HttpPut]//("{id}")
         public async Task<ActionResult> PutAsync([FromBody] Contact value)
         {
             _service.Update(value);

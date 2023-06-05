@@ -41,7 +41,7 @@ namespace P013EStore.WebAPI.Controllers
         }
 
         // PUT api/<ProductsController>/5
-        [HttpPut("{id}")]
+        [HttpPut] // ("{id}")
         public async Task<IActionResult> Put([FromBody] Product value)
         {
             _service.Update(value);
