@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using P013EStore.Core.Entities;
 using P013EStore.WebAPIUsing.Utils;
@@ -6,39 +7,41 @@ using P013EStore.WebAPIUsing.Utils;
 namespace P013EStore.WebAPIUsing.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoriesController : Controller
+    public class ProductsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "https://localhost:7032/api/Categories";
-        public CategoriesController(HttpClient httpClient)
+        private readonly string _apiAdres = "https://localhost:7032/api/Products";
+        private readonly string _apiAdresKategori = "https://localhost:7032/api/Categories";
+        private readonly string _apiAdresMarka = "https://localhost:7032/api/Brands";
+        public ProductsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
-
-        // GET: CategoriesController
+        // GET: ProductsController
         public async Task<ActionResult> Index()
         {
-            var model = await _httpClient.GetFromJsonAsync<List<Category>>(_apiAdres);
+            var model = await _httpClient.GetFromJsonAsync<List<Product>>(_apiAdres);
             return View(model);
         }
 
-        // GET: CategoriesController/Details/5
+        // GET: ProductsController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: CategoriesController/Create
+        // GET: ProductsController/Create
         public async Task<ActionResult> CreateAsync()
         {
-            ViewBag.ParentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Category>>(_apiAdres), "Id", "Name");
+            ViewBag.CategoryId = new SelectList(await _httpClient.GetFromJsonAsync<List<Category>>(_apiAdresKategori), "Id", "Name");
+            ViewBag.BrandId = new SelectList(await _httpClient.GetFromJsonAsync<List<Brand>>(_apiAdresMarka), "Id", "Name");
             return View();
         }
 
-        // POST: CategoriesController/Create
+        // POST: ProductsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(Category collection, IFormFile? Image)
+        public async Task<ActionResult> CreateAsync(Product collection, IFormFile? Image)
         {
             try
             {
@@ -56,22 +59,24 @@ namespace P013EStore.WebAPIUsing.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("", "Hata Oluştu!");
             }
-            ViewBag.ParentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Category>>(_apiAdres), "Id", "Name");
+            ViewBag.CategoryId = new SelectList(await _httpClient.GetFromJsonAsync<List<Category>>(_apiAdresKategori), "Id", "Name");
+            ViewBag.BrandId = new SelectList(await _httpClient.GetFromJsonAsync<List<Brand>>(_apiAdresMarka), "Id", "Name");
             return View();
         }
 
-        // GET: CategoriesController/Edit/5
+        // GET: ProductsController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
         {
-            ViewBag.ParentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Category>>(_apiAdres), "Id", "Name");
-            var model = await _httpClient.GetFromJsonAsync<Category>(_apiAdres + "/" + id);
+            ViewBag.CategoryId = new SelectList(await _httpClient.GetFromJsonAsync<List<Category>>(_apiAdresKategori), "Id", "Name");
+            ViewBag.BrandId = new SelectList(await _httpClient.GetFromJsonAsync<List<Brand>>(_apiAdresMarka), "Id", "Name");
+            var model = await _httpClient.GetFromJsonAsync<Product>(_apiAdres + "/" + id);
             return View(model);
         }
 
-        // POST: CategoriesController/Edit/5
+        // POST: ProductsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, Category collection, IFormFile? Image, bool? resmiSil)
+        public async Task<ActionResult> EditAsync(int id, Product collection, IFormFile? Image, bool? resmiSil)
         {
             try
             {
@@ -94,21 +99,22 @@ namespace P013EStore.WebAPIUsing.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("", "Hata Oluştu!");
             }
-            ViewBag.ParentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Category>>(_apiAdres), "Id", "Name");
+            ViewBag.CategoryId = new SelectList(await _httpClient.GetFromJsonAsync<List<Category>>(_apiAdresKategori), "Id", "Name");
+            ViewBag.BrandId = new SelectList(await _httpClient.GetFromJsonAsync<List<Brand>>(_apiAdresMarka), "Id", "Name");
             return View();
         }
 
-        // GET: CategoriesController/Delete/5
+        // GET: ProductsController/Delete/5
         public async Task<ActionResult> DeleteAsync(int id)
         {
-            var model = await _httpClient.GetFromJsonAsync<Category>(_apiAdres + "/" + id);
+            var model = await _httpClient.GetFromJsonAsync<Product>(_apiAdres + "/" + id);
             return View(model);
         }
 
-        // POST: CategoriesController/Delete/5
+        // POST: ProductsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteAsync(int id, Category collection)
+        public async Task<ActionResult> DeleteAsync(int id, Product collection)
         {
             try
             {

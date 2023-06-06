@@ -1,12 +1,13 @@
 using P013EStore.Data;
 using P013EStore.Service.Abstract;
 using P013EStore.Service.Concrete;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles); // classlar arasýndaki baðlantýdan kaynaklý oluþacak iç içe döngüleri görmezden gel
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

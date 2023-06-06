@@ -2,8 +2,6 @@
 using P013EStore.Core.Entities;
 using P013EStore.Service.Abstract;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace P013EStore.WebAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -21,14 +19,14 @@ namespace P013EStore.WebAPI.Controllers
         [HttpGet]
         public async Task<IEnumerable<Product>> GetAsync()
         {
-            return await _service.GetAllAsync();
+            return await _service.GetProductsByIncludeAsync();
         }
 
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
         public async Task<Product> GetAsync(int id)
         {
-            return await _service.FindAsync(id);
+            return await _service.GetProductByIncludeAsync(id);
         }
 
         // POST api/<ProductsController>
