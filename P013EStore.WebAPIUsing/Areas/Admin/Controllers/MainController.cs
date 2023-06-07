@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace P013EStore.WebAPIUsing.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Policy = "AdminPolicy")]
     public class MainController : Controller
     {
         public IActionResult Index()

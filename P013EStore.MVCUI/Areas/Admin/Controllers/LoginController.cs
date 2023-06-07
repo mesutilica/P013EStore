@@ -16,9 +16,11 @@ namespace P013EStore.MVCUI.Areas.Admin.Controllers
         {
             _service = service;
         }
-        public IActionResult Index()
+        public IActionResult Index(string ReturnUrl)
         {
-            return View();
+            var model = new AdminLoginViewModel();
+            model.ReturnUrl = ReturnUrl;
+            return View(model);
         }
         [Route("Logout")]
         public async Task<IActionResult> Logout()

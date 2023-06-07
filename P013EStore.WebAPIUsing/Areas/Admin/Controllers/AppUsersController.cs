@@ -4,7 +4,7 @@ using P013EStore.Core.Entities;
 
 namespace P013EStore.WebAPIUsing.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Policy = "AdminPolicy")]
     public class AppUsersController : Controller
     {
         private readonly HttpClient _httpClient; // _httpClient nesnesini kullanarak api lere istek gönderebiliriz
