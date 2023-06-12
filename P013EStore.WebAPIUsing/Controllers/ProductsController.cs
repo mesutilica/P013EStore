@@ -23,9 +23,9 @@ namespace P013EStore.WebAPIUsing.Controllers
 
         public async Task<IActionResult> Search(string q) // adres çubuğunda query string ile 
         {
-            var products = await _httpClient.GetFromJsonAsync<List<Product>>(_apiAdres);
-            var model = products.Where(p => p.IsActive && p.Name.Contains(q) || p.Description.Contains(q) || p.Brand.Name.Contains(q) || p.Category.Name.Contains(q));
-            return View(model);
+            var products = await _httpClient.GetFromJsonAsync<List<Product>>(_apiAdres + "/GetSearch/" + q);
+            
+            return View(products);
         }
 
         public async Task<IActionResult> DetailAsync(int id)
