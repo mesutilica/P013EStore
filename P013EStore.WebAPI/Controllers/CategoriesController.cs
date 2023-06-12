@@ -9,9 +9,9 @@ namespace P013EStore.WebAPI.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly IService<Category> _service;
+        private readonly ICategoryService _service;
 
-        public CategoriesController(IService<Category> service)
+        public CategoriesController(ICategoryService service)
         {
             _service = service;
         }
@@ -26,7 +26,7 @@ namespace P013EStore.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<Category> GetAsync(int id)
         {
-            return await _service.FindAsync(id);
+            return await _service.GetCategoryByIncludeAsync(id);
         }
 
         // POST api/<CategoriesController>

@@ -20,7 +20,6 @@ namespace P013EStore.WebAPIUsing.Controllers
             {
                 return NotFound();
             }
-            model.Products = await _httpClient.GetFromJsonAsync<List<Product>>(_apiAdres + "Products");
             return View(model);
         }
     }
