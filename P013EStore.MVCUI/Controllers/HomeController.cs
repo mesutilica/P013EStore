@@ -12,20 +12,26 @@ namespace P013EStore.MVCUI.Controllers
         private readonly IService<Slider> _serviceSlider;
         private readonly IService<Product> _serviceProduct;
         private readonly IService<Contact> _serviceContact;
+        private readonly IService<News> _serviceNews;
+        private readonly IService<Brand> _serviceBrand;
 
-        public HomeController(IService<Slider> serviceSlider, IService<Product> serviceProduct, IService<Contact> serviceContact)
+        public HomeController(IService<Slider> serviceSlider, IService<Product> serviceProduct, IService<Contact> serviceContact, IService<News> serviceNews, IService<Brand> serviceBrand)
         {
             _serviceSlider = serviceSlider;
             _serviceProduct = serviceProduct;
             _serviceContact = serviceContact;
+            _serviceNews = serviceNews;
+            _serviceBrand = serviceBrand;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
             var model = new HomePageViewModel()
             {
                 Sliders = await _serviceSlider.GetAllAsync(),
-                Products = await _serviceProduct.GetAllAsync(p => p.IsActive && p.IsHome)
+                Products = await _serviceProduct.GetAllAsync(p => p.IsActive && p.IsHome),
+                Brands = await _serviceBrand.GetAllAsync(b => b.IsActive),
+                News = await _serviceNews.GetAllAsync(n => n.IsActive && n.IsHome)
             };
             return View(model);
         }
