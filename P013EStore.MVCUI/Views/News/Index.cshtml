@@ -1,0 +1,32 @@
+﻿@model IEnumerable<News>
+
+@{
+    ViewData["Title"] = "Bizden Haberler | Tüm Haberlerimiz";
+}
+
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">@ViewData["Title"]</h1>
+        </div>
+    </div>
+</header>
+
+<section class="pb-1">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 justify-content-center">
+            @foreach (var item in Model)
+            {
+                @if (!string.IsNullOrWhiteSpace(item.Image))
+                {
+                    <div class="col">
+                        <a class="nav-link text-dark text-center" href="/News/Detail/@item.Id">
+                            <img src="/Img/@item.Image" alt="@item.Title" class="img-thumbnail" />
+                            <h3>@item.Title</h3>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
