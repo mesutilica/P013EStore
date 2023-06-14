@@ -10,6 +10,8 @@
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Logo" />
+            <input type="hidden" asp-for="Favicon" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -54,11 +56,29 @@
                 <label asp-for="Favicon" class="control-label"></label>
                 <input asp-for="Favicon" class="form-control" type="file" />
                 <span asp-validation-for="Favicon" class="text-danger"></span>
+                @if (!string.IsNullOrEmpty(Model.Favicon))
+                {
+                    <img src="/Img/@Model.Favicon" alt="" height="15" />
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            @Html.CheckBox("faviconuSil") Resmi Sil
+                        </label>
+                    </div>
+                }
             </div>
             <div class="form-group">
                 <label asp-for="Logo" class="control-label"></label>
                 <input asp-for="Logo" class="form-control" type="file" />
                 <span asp-validation-for="Logo" class="text-danger"></span>
+                @if (!string.IsNullOrEmpty(Model.Logo))
+                {
+                    <img src="/Img/@Model.Logo" alt="" height="50" />
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            @Html.CheckBox("logoyuSil") Resmi Sil
+                        </label>
+                    </div>
+                }
             </div>
             <div class="form-group">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />
