@@ -14,14 +14,18 @@ namespace P013EStore.MVCUI.Controllers
         private readonly IService<Contact> _serviceContact;
         private readonly IService<News> _serviceNews;
         private readonly IService<Brand> _serviceBrand;
+        private readonly IService<Log> _serviceLog;
+        private readonly IService<Setting> _serviceSetting;
 
-        public HomeController(IService<Slider> serviceSlider, IService<Product> serviceProduct, IService<Contact> serviceContact, IService<News> serviceNews, IService<Brand> serviceBrand)
+        public HomeController(IService<Slider> serviceSlider, IService<Product> serviceProduct, IService<Contact> serviceContact, IService<News> serviceNews, IService<Brand> serviceBrand, IService<Log> serviceLog, IService<Setting> serviceSetting)
         {
             _serviceSlider = serviceSlider;
             _serviceProduct = serviceProduct;
             _serviceContact = serviceContact;
             _serviceNews = serviceNews;
             _serviceBrand = serviceBrand;
+            _serviceLog = serviceLog;
+            _serviceSetting = serviceSetting;
         }
 
         public async Task<IActionResult> Index()
@@ -41,8 +45,11 @@ namespace P013EStore.MVCUI.Controllers
             return View();
         }
         [Route("iletisim")]
-        public IActionResult ContactUs()
+        public async Task<IActionResult> ContactUsAsync()
         {
+            //var model = await _serviceSetting.GetAllAsync();
+            //if (model != null)
+            //    return View(model.FirstOrDefault());
             return View();
         }
         [Route("iletisim"), HttpPost]
@@ -61,12 +68,19 @@ namespace P013EStore.MVCUI.Controllers
                         return RedirectToAction("ContactUs");
                     }
                 }
-                catch (Exception)
+                catch (Exception hata)
                 {
+                    await _serviceLog.AddAsync(new Log
+                    {
+                        Title = "İletişim Formu Gönderilirken Hata Oluştu!",
+                        Description = hata.Message
+                    });
+                    await _serviceLog.SaveAsync();
+                    // await MailHelper.SendMailAsync(contact); // oluşan hatayı yazılımcıya mail gönder.
                     ModelState.AddModelError("", "Hata Oluştu!");
                 }
             }
-            return View();
+            return View(contact);
         }
         [Route("AccessDenied")]
         public IActionResult AccessDenied()

@@ -1,13 +1,16 @@
-﻿@model Contact
-
+﻿@using P013EStore.Service.Abstract;
+@model Contact
+@inject IService<Setting> _serviceSetting
 @{
     ViewData["Title"] = "İletişim";
+    var settings = await _serviceSetting.GetAllAsync();
+    var setting = settings.FirstOrDefault();
 }
 
 <h1>İletişim</h1>
 
 <div class="row">
-    
+
     <div class="col-md-4">
         <h4>Bize Ulaşın</h4>
         <hr />
@@ -49,21 +52,39 @@
         <table>
             <tr>
                 <th>Adres</th>
-                <td> Kemankeş Karamustafa Paşa, Ali Paşa Değirmeni Sk. No:3, 34560 Beyoğlu/İstanbul</td>
+                <td>
+                    @if (setting is not null)
+                    {
+                        @setting.Address
+                    }
+                </td>
             </tr>
             <tr>
                 <th>Telefon</th>
-                <td> 0850 272 7454</td>
+                <td>
+                    @if (setting is not null)
+                    {
+                        @setting.Phone
+                    }
+                </td>
             </tr>
             <tr>
                 <th>Email</th>
-                <td> info@siliconemade.co</td>
+                <td>
+                    @if (setting is not null)
+                    {
+                        @setting.Email
+                    }
+                </td>
             </tr>
         </table>
     </div>
     <div class="col-md-4">
         <h4>Harita Bilgilerimiz</h4>
         <hr />
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12040.000958790157!2d28.9789395!3d41.0252507!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab974807d0575%3A0x44089783d1089f31!2sSiliconmade%20Academy!5e0!3m2!1str!2str!4v1685390503745!5m2!1str!2str" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        @if (setting is not null)
+        {
+            @Html.Raw(setting.MapCode)
+        }
     </div>
 </div>
