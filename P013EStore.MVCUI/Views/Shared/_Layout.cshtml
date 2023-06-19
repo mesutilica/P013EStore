@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using P013EStore.Service.Abstract;
+@inject IService<Setting> _serviceSetting;
+@{
+    var settings = await _serviceSetting.GetAllAsync(); // db den ayarları çek
+    var setting = settings.FirstOrDefault(); // ayar listesindeki ilk ayarı al
+}
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -13,7 +19,14 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" style="background-color:#202844; padding: 5px 1rem;" asp-controller="Home" asp-action="Index">
-                    <img src="~/img/logo.png" height="50" />
+                    @if (setting is not null)
+                    {
+                        <img src="~/Img/@setting.Logo" height="50" />
+                    }
+                    else
+                    {
+                        @:Logo
+                    }
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
