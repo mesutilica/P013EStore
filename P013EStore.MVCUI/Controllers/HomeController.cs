@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using P013EStore.Core.Entities;
 using P013EStore.MVCUI.Models;
-using P013EStore.MVCUI.Utils;
 using P013EStore.Service.Abstract;
-using System.Diagnostics;
 
 namespace P013EStore.MVCUI.Controllers
 {
@@ -14,10 +12,10 @@ namespace P013EStore.MVCUI.Controllers
         private readonly IService<Contact> _serviceContact;
         private readonly IService<News> _serviceNews;
         private readonly IService<Brand> _serviceBrand;
-        private readonly IService<Log> _serviceLog;
+        private readonly IService<AppLog> _serviceLog;
         private readonly IService<Setting> _serviceSetting;
 
-        public HomeController(IService<Slider> serviceSlider, IService<Product> serviceProduct, IService<Contact> serviceContact, IService<News> serviceNews, IService<Brand> serviceBrand, IService<Log> serviceLog, IService<Setting> serviceSetting)
+        public HomeController(IService<Slider> serviceSlider, IService<Product> serviceProduct, IService<Contact> serviceContact, IService<News> serviceNews, IService<Brand> serviceBrand, IService<AppLog> serviceLog, IService<Setting> serviceSetting)
         {
             _serviceSlider = serviceSlider;
             _serviceProduct = serviceProduct;
@@ -40,8 +38,23 @@ namespace P013EStore.MVCUI.Controllers
             return View(model);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> PrivacyAsync()
         {
+            //
+            try
+            {
+                throw new Exception("Bilinmeyen bir hata");
+            }
+            catch (Exception hata)
+            {
+                await _serviceLog.AddAsync(new P013EStore.Core.Entities.AppLog()
+                {
+                    Title = "Home/Privacy Sayfasında Hata Oluştu " + hata.Message,
+                    Description = "Oluşan Hata " + hata.InnerException.ToString()
+                });
+                await _serviceLog.SaveAsync();
+                //
+            }
             return View();
         }
         [Route("iletisim")]
@@ -70,7 +83,7 @@ namespace P013EStore.MVCUI.Controllers
                 }
                 catch (Exception hata)
                 {
-                    await _serviceLog.AddAsync(new Log
+                    await _serviceLog.AddAsync(new P013EStore.Core.Entities.AppLog()
                     {
                         Title = "İletişim Formu Gönderilirken Hata Oluştu!",
                         Description = hata.Message
@@ -88,10 +101,5 @@ namespace P013EStore.MVCUI.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
